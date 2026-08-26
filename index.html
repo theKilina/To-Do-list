@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой To-Do лист</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Мои задачи</h1>
+        
+        <div class="input-section">
+            <input type="text" id="taskInput" placeholder="Введите задачу...">
+            <button id="addBtn">Добавить</button>
+        </div>
+
+        <div class="stats">
+            <span>Всего: <span id="totalCount">0</span></span>
+            <span>Выполнено: <span id="completedCount">0</span></span>
+        </div>
+
+        <ul id="taskList">
+            <li class="empty-message">Пока нет задач. Добавьте первую!</li>
+        </ul>
+    </div>
+
+    <script src="do.js"></script>
+</body>
+</html>
