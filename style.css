@@ -39,7 +39,7 @@ h1 {
     font-size: 28px;
 }
 
-/* Авторизация */
+/* Стили для авторизации */
 .auth-container {
     max-width: 450px;
 }
@@ -111,7 +111,7 @@ h1 {
     text-decoration: underline;
 }
 
-/* Основная часть */
+/* Основное приложение */
 .header-with-user {
     display: flex;
     justify-content: space-between;
@@ -216,6 +216,7 @@ h1 {
     margin-bottom: 8px;
     transition: all 0.3s;
     animation: slideIn 0.5s ease;
+    gap: 10px;
 }
 
 .task-item:hover {
@@ -240,8 +241,10 @@ h1 {
     height: 20px;
     cursor: pointer;
     accent-color: #667eea;
+    flex-shrink: 0;
 }
 
+/* Стили для кнопки удаления */
 .task-item .delete-btn {
     background: #dc3545;
     color: white;
@@ -250,12 +253,19 @@ h1 {
     padding: 5px 12px;
     cursor: pointer;
     font-size: 14px;
-    transition: background 0.3s;
+    transition: all 0.3s;
     font-family: 'Bounded';
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .task-item .delete-btn:hover {
     background: #c82333;
+    transform: scale(1.05);
+}
+
+.task-item .delete-btn:active {
+    transform: scale(0.95);
 }
 
 .empty-message {
@@ -276,6 +286,7 @@ h1 {
 }
 
 /* Адаптив */
+
 @media (max-width: 600px) {
     .container {
         padding: 15px;
@@ -289,6 +300,7 @@ h1 {
     
     .user-info {
         justify-content: center;
+        flex-wrap: wrap;
     }
     
     .input-section {
@@ -297,5 +309,141 @@ h1 {
     
     #addBtn {
         width: 100%;
+    }
+
+    .task-item {
+        padding: 10px 12px;
+        gap: 8px;
+    }
+
+    .task-item .task-text {
+        margin: 0 6px;
+        font-size: 14px;
+    }
+
+    .task-item .checkbox {
+        width: 18px;
+        height: 18px;
+    }
+
+    .task-item .delete-btn {
+        padding: 6px 10px;
+        font-size: 0;
+        width: 30px;
+        height: 30px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #dc3545;
+        position: relative;
+        flex-shrink: 0;
+    }
+
+    .task-item .delete-btn::after {
+        content: '✕';
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Увеличиваем область касания для кнопки */
+    .task-item .delete-btn::before {
+        content: '';
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        bottom: -8px;
+        left: -8px;
+        border-radius: 50%;
+    }
+
+    .task-item .delete-btn:hover {
+        background: #c82333;
+        transform: scale(1.1);
+    }
+
+    .task-item .delete-btn:active {
+        transform: scale(0.9);
+        background: #a71d2a;
+    }
+    .stats {
+        font-size: 12px;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    /* Маленькие экраны */
+    @media (max-width: 380px) {
+        .task-item {
+            padding: 8px 10px;
+            gap: 6px;
+        }
+
+        .task-item .task-text {
+            font-size: 13px;
+            margin: 0 4px;
+        }
+
+        .task-item .delete-btn {
+            width: 32px;
+            height: 32px;
+        }
+
+        .task-item .delete-btn::after {
+            font-size: 16px;
+        }
+
+        .task-item .checkbox {
+            width: 16px;
+            height: 16px;
+        }
+
+        #taskInput {
+            font-size: 14px;
+            padding: 10px;
+        }
+
+        #addBtn {
+            font-size: 14px;
+            padding: 10px;
+        }
+    }
+}
+
+/* Планшеты и маленькие ноутбуки */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .container {
+        padding: 25px;
+        max-width: 90%;
+    }
+
+    .task-item {
+        padding: 12px 16px;
+    }
+
+    .task-item .delete-btn {
+        padding: 5px 14px;
+        font-size: 14px;
+    }
+}
+
+/* Большие экраны */
+@media (min-width: 1025px) {
+    .container {
+        padding: 40px;
+    }
+
+    .task-item {
+        padding: 14px 20px;
+    }
+
+    .task-item .delete-btn {
+        padding: 6px 16px;
+        font-size: 15px;
     }
 }
