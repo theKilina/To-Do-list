@@ -39,6 +39,120 @@ h1 {
     font-size: 28px;
 }
 
+/* Авторизация */
+.auth-container {
+    max-width: 450px;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    font-size: 14px;
+    color: #555;
+    font-weight: 500;
+}
+
+.form-group input {
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    font-family: 'Bounded';
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.auth-btn {
+    padding: 14px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-family: 'Bounded';
+    margin-top: 5px;
+}
+
+.auth-btn:hover {
+    background: #5a67d8;
+}
+
+.auth-switch {
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.auth-switch a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.auth-switch a:hover {
+    text-decoration: underline;
+}
+
+/* Основная часть */
+.header-with-user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.header-with-user h1 {
+    margin-bottom: 0;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 14px;
+    color: #555;
+}
+
+.user-info span {
+    font-weight: 500;
+}
+
+.logout-btn {
+    padding: 8px 16px;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+    font-family: 'Bounded';
+}
+
+.logout-btn:hover {
+    background: #c82333;
+}
+
 .input-section {
     display: flex;
     gap: 10px;
@@ -55,6 +169,7 @@ h1 {
     min-width: 0;
     width: 100%;
     box-sizing: border-box;
+    font-family: 'Bounded';
 }
 
 #taskInput:focus {
@@ -72,6 +187,7 @@ h1 {
     cursor: pointer;
     transition: background 0.3s;
     white-space: nowrap;
+    font-family: 'Bounded';
 }
 
 #addBtn:hover {
@@ -135,6 +251,7 @@ h1 {
     cursor: pointer;
     font-size: 14px;
     transition: background 0.3s;
+    font-family: 'Bounded';
 }
 
 .task-item .delete-btn:hover {
@@ -155,5 +272,30 @@ h1 {
     } to {
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+/* Адаптив */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .header-with-user {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+    
+    .user-info {
+        justify-content: center;
+    }
+    
+    .input-section {
+        flex-direction: column;
+    }
+    
+    #addBtn {
+        width: 100%;
     }
 }

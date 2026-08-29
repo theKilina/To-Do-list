@@ -1,4 +1,4 @@
-// Нужные эл-ты
+// DOM элементы через querySelector
 const taskInput = document.querySelector('#taskInput');
 const addBtn = document.querySelector('#addBtn');
 const taskList = document.querySelector('#taskList');
@@ -8,19 +8,38 @@ const completedCount = document.querySelector('#completedCount');
 // Состояние приложения
 let tasks = [];
 let nextId = 1;
+let currentUser = null;
 
-// Работа с localStorage
+// Работа с localStorage (с привязкой к пользователю)
+function getStorageKey() {
+    if (!currentUser) return null;
+    return `tasks_${currentUser.id}`;
+}
+
 function saveTasks() {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-    localStorage.setItem('nextId', String(nextId));
+    const key = getStorageKey();
+    if (!key) return;
+    localStorage.setItem(key, JSON.stringify(tasks));
+    localStorage.setItem(`${key}_nextId`, String(nextId));
 }
 
 function loadTasks() {
-    const savedTasks = localStorage.getItem('tasks');
-    const savedNextId = localStorage.getItem('nextId');
+    const key = getStorageKey();
+    if (!key) return;
+    
+    const savedTasks = localStorage.getItem(key);
+    const savedNextId = localStorage.getItem(`${key}_nextId`);
     
     if (savedTasks) {
         tasks = JSON.parse(savedTasks);
+    } else {
+        // Если у пользователя нет задач, создаем примеры
+        tasks = [
+            { id: 1, text: 'Изучить JavaScript', completed: false },
+            { id: 2, text: 'Сделать приложение', completed: false },
+            { id: 3, text: 'Подготовиться к собеседованию', completed: true }
+        ];
+        nextId = 4;
     }
     if (savedNextId) {
         nextId = Number(savedNextId);
@@ -57,10 +76,8 @@ function renderTasks() {
         deleteBtn.textContent = 'Удалить';
         deleteBtn.addEventListener('click', () => deleteTask(task.id));
         
-        li.appendChild(checkbox);
-        li.appendChild(span);
-        li.appendChild(deleteBtn);
-        taskList.appendChild(li);
+        li.append(checkbox, span, deleteBtn);
+        taskList.append(li);
     });
     
     updateStats();
@@ -110,25 +127,29 @@ function toggleTask(id) {
     }
 }
 
-// События
-addBtn.addEventListener('click', addTask);
-taskInput.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter') addTask();
-});
-
-// Инициализируем
-loadTasks();
-
-// Если задач нет - примеры
-if (tasks.length === 0) {
-    tasks = [
-        { id: 1, text: 'Изучить JavaScript', completed: false },
-        { id: 2, text: 'Сделать приложение', completed: false },
-        { id: 3, text: 'Подготовиться к собеседованию', completed: true }
-    ];
-    nextId = 4;
-    saveTasks();
+// Инициализация приложения
+function initApp() {
+    // Получаем текущего пользователя из системы авторизации
+    if (window.auth) {
+        currentUser = window.auth.getCurrentUser();
+        if (currentUser) {
+            loadTasks();
+            renderTasks();
+            taskInput.focus();
+            
+            // Добавляем обработчики событий
+            addBtn.addEventListener('click', addTask);
+            taskInput.addEventListener('keypress', (event) => {
+                if (event.key === 'Enter') addTask();
+            });
+        }
+    }
 }
 
-renderTasks();
-taskInput.focus();
+// Сохраняем функцию для вызова из auth.js
+window.initApp = initApp;
+
+// Если пользователь уже авторизован при загрузке
+if (window.auth && window.auth.checkAuth()) {
+    initApp();
+}
