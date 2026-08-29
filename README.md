@@ -2,7 +2,7 @@
 
 Приложение для управления задачами с авторизацией и сохранением в localStorage.
 
-**Сайт:** [list-to-do-task.netlify.app](https://list-to-do-task.netlify.app)
+**Сайт:** [todo-task-ak.netlify.app](https://todo-task-ak.netlify.app)
 
 ---
 
